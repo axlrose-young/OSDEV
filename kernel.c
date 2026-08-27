@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #if defined(__linux__)
 #error "You are not using a cross-compiler"
@@ -49,12 +50,30 @@ uint16_t vga_entry(char ch, uint8_t color){
 #define VGA_MEMORY  0xB8000 
 	
 uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
+static size_t row = 0;
+static size_t col = 0;
+
+void terminal_putchar(char ch){
+	uint8_t terminal_color = vga_set_color(VGA_COLOR_BLACK, VGA_COLOR_LIGHT_GREY);		 	
+
+	if(ch == '\n'){
+		row++;
+		col = 0;
+		return;
+	}
+
+	if(++col > VGA_WIDTH){
+		col = 0;
+		if(++row > VGA_HEIGHT)
+			row = 0;
+	}
+	size_t index = row*80 + col;	
+	*(terminal_buffer + index) = vga_entry(ch, terminal_color);
+}
 
 void terminal_write(char* s, size_t size){
-	uint8_t terminal_color = vga_set_color(VGA_COLOR_BLACK, VGA_COLOR_LIGHT_GREY);		 
-	for(size_t i = 0; i < size; i++){
-		*(terminal_buffer + i) = vga_entry(s[i], terminal_color);
-	}	
+	for(size_t i = 0; i < size; i++)
+		terminal_putchar(s[i]);	
 }
 
 void terminal_writestring(char* s){
@@ -77,5 +96,5 @@ void terminal_init(void){
 void kernel_main(void){
 	terminal_init();	
 
-	terminal_writestring("Hello World!");
+	terminal_writestring("Hello World!\nWhat is your name?");
 }
