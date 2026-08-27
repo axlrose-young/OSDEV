@@ -28,11 +28,13 @@ enum vga_color {
 	VGA_COLOR_WHITE = 15,
 };
 
-#define VGA_WIDTH   80
-#define VGA_HEIGHT  25
-#define VGA_MEMORY  0xB8000 
-	
-uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
+/* Helper functions */
+size_t len(char* s){
+	size_t size = 0;
+	while(*s++)
+		size++;	
+	return size;	
+}
 
 uint8_t vga_set_color(enum vga_color bg, enum vga_color fg){
 	return fg | bg << 4;	
@@ -40,6 +42,25 @@ uint8_t vga_set_color(enum vga_color bg, enum vga_color fg){
 
 uint16_t vga_entry(char ch, uint8_t color){
 	return ch | color << 8; 		
+}
+
+#define VGA_WIDTH   80
+#define VGA_HEIGHT  25
+#define VGA_MEMORY  0xB8000 
+	
+uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
+
+void terminal_write(char* s, size_t size){
+	uint8_t terminal_color = vga_set_color(VGA_COLOR_BLACK, VGA_COLOR_LIGHT_GREY);		 
+	for(size_t i = 0; i < size; i++){
+		*(terminal_buffer + i) = vga_entry(s[i], terminal_color);
+	}	
+}
+
+void terminal_writestring(char* s){
+	/* extract data and size */		
+	size_t size = len(s);
+	terminal_write(s, size);
 }
 
 void terminal_init(void){
@@ -55,4 +76,6 @@ void terminal_init(void){
 
 void kernel_main(void){
 	terminal_init();	
+
+	terminal_writestring("Hello World!");
 }
