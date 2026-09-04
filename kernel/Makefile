@@ -1,23 +1,24 @@
-CC := i686-elf-gcc
-CFLAGS := -ffreestanding -Wall -Wextra
-CPPFLAGS := -D__kernel
-LDFLAGS := -T arch/linker.ld -ffreestanding -nostdlib
-LIBS := -lgcc
+CC=i686-elf-gcc
+AS=i686-elf-as
 
-%.o: %.c 
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+CFLAGS = -ffreestanding -O2 -Wall -Wextra -I../sysroot/usr/include -Iinclude
 
-%.o: %.s
+OBJS = \
+       ../arch/boot.o \
+       kernel.o \
+       tty.o
+
+myos: $(OBJS) ../sysroot/usr/lib/libk.a
+	$(CC) -T ../arch/linker.ld -o myos -ffreestanding -O2 -nostdlib $(OBJS) -lgcc -L../sysroot/usr/lib -lk
+
+../arch/boot.o: ../arch/boot.s
+	$(AS) $< -o $@
+
+kernel.o: kernel.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-OBJS := arch/boot.o kernel.o tty.o
-
-myos.bin: $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
-
-all: myos.bin 
+tty.o: tty.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: 
-	rm -f $(OBJS) myos.bin
-
-.PHONY: all clean
+	rm -rf $(OBJS) myos

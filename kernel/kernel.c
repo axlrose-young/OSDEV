@@ -6,8 +6,8 @@
 #error "Needs to be compiled with a ix86-elf compiler"
 #endif
 
-#include <stdint.h>
-#include "tty.h"
+#include <stddef.h>
+#include <kernel/tty.h>
 
 void kernel_main(void){
 	terminal_init();	

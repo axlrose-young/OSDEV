@@ -1,14 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
-#include "tty.h"
 
-/* Helper functions */
-size_t len(char* s){
-	size_t size = 0;
-	while(*s++)
-		size++;	
-	return size;	
-}
+#include <string.h>
+#include <kernel/tty.h>
 
 #define VGA_WIDTH   80
 #define VGA_HEIGHT  25
@@ -43,7 +37,7 @@ void terminal_write(char* s, size_t size){
 
 void terminal_writestring(char* s){
 	/* extract data and size */		
-	size_t size = len(s);
+	size_t size = strlen(s);
 	terminal_write(s, size);
 }
 
