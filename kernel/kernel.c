@@ -8,9 +8,14 @@
 
 #include <stddef.h>
 #include <kernel/tty.h>
+#include <stdio.h>
 
 void kernel_main(void){
 	terminal_init();	
 
-	terminal_writestring("Hello World!\nWhat is your name?");
+	terminal_writestring("Hello World!\nWhat is your name?\n");
+	putchar('a');
+	putchar('\n');
+	putchar('\n');
+	putchar('a');
 }

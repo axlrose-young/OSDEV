@@ -1,7 +1,8 @@
 CC=i686-elf-gcc
 AS=i686-elf-as
 
-CFLAGS = -ffreestanding -O2 -Wall -Wextra -I../sysroot/usr/include -Iinclude
+CFLAGS = -ffreestanding -O2 -Wall -Wextra 
+CPPFLAGS = -I../sysroot/usr/include -Iinclude
 
 OBJS = \
        ../arch/boot.o \
@@ -14,11 +15,8 @@ myos: $(OBJS) ../sysroot/usr/lib/libk.a
 ../arch/boot.o: ../arch/boot.s
 	$(AS) $< -o $@
 
-kernel.o: kernel.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-tty.o: tty.c
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 clean: 
 	rm -rf $(OBJS) myos
