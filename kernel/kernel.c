@@ -14,8 +14,5 @@ void kernel_main(void){
 	terminal_init();	
 
 	terminal_writestring("Hello World!\nWhat is your name?\n");
-	putchar('a');
-	putchar('\n');
-	putchar('\n');
-	putchar('a');
+	printf("This is printf: %s %d%%","string subs and number subs", -555555);
 }

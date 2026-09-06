@@ -7,7 +7,8 @@ CPPFLAGS = -Iinclude -I../kernel/include
 OBJS = \
        string/strlen.o \
        string/memcpy.o \
-       stdio/putchar.o
+       stdio/putchar.o \
+       stdio/printf.o
 
 SYSROOT = ../sysroot
 
