@@ -33,6 +33,29 @@ void printf(const char* fmt,...){
 					}
 					break;
 				}
+				case 'x':{
+					// does not handle negative numbers
+					int d = va_arg(args,int);
+					uint8_t buffer[8] = {0};
+					int count = 0;
+					while(d > 0) {
+						int digit = d % 16;
+
+						if(digit < 10) 
+							buffer[count++] = '0' + digit;		
+						else {
+							digit -= 10;
+							buffer[count++] = 'A' + digit; 	
+						}
+						
+						d /= 16;
+					}
+
+					while(count--) {
+						putchar(buffer[count]);
+					}
+					break;
+				}
 				case '%':{
 					putchar('%');
 					break;

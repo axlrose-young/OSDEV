@@ -9,9 +9,9 @@ libc:
 	$(MAKE) install -C libc
 
 iso: 
-	mkdir -p isodir/boot/grub
-	cp kernel/myos isodir/boot/myos
-	grub-mkrescue -o myos.iso isodir
+	mkdir -p sysroot/boot/grub
+	cp kernel/myos sysroot/boot/myos
+	grub-mkrescue -o myos.iso sysroot
 
 clean: 
 	$(MAKE) clean -C kernel
