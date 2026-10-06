@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <kernel/tty.h>
+#include <tty.h>
 #include <stdarg.h>
 #include <stddef.h>
 
@@ -35,7 +35,7 @@ void printf(const char* fmt,...){
 				}
 				case 'x':{
 					// does not handle negative numbers
-					int d = va_arg(args,int);
+					unsigned int d = va_arg(args,int);
 					uint8_t buffer[8] = {0};
 					int count = 0;
 					while(d > 0) {

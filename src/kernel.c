@@ -8,7 +8,7 @@
 
 #include <stddef.h>
 
-#include <kernel/tty.h>
+#include <tty.h>
 #include <stdio.h>
 
 void kernel_main(void){
