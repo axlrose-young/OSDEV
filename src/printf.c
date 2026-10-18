@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <io.h>
 #include <tty.h>
 #include <stdarg.h>
 #include <stddef.h>

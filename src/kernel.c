@@ -9,12 +9,14 @@
 #include <stddef.h>
 
 #include <tty.h>
-#include <stdio.h>
+#include <io.h>
+#include <gdt.h>
 
-void kernel_main(void){
+void 
+kernel_main(void)
+{
 	terminal_init();	
+	gdt_init();
 
-	terminal_writestring("Hello World!\nWhat is your name?\n");
-	printf("This is printf: %s %d%%","string subs and number subs", -555555);
-	printf("This is hex working %x\n", 15);
+	printf("Hello after gdt init\n");
 }

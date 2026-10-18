@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include <io.h>
 #include <tty.h>
 
 int putchar(int ic){

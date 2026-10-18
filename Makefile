@@ -3,7 +3,7 @@
 CC=i686-elf-gcc
 AS=i686-elf-gcc
 
-CFLAGS= -ffreestanding -O2 -Wall -Wextra -g
+CFLAGS= -ffreestanding -O0 -Wall -Wextra -g -Iinclude
 ASFLAGS = -Iinclude -g
 
 LDFLAGS= -T linker.ld -ffreestanding -nostdlib -lgcc
@@ -14,10 +14,12 @@ OBJS = build/boot.o \
        build/memcpy.o \
        build/printf.o \
        build/putchar.o \
-       build/strlen.o 
+       build/strlen.o \
+       build/gdt.o \
+       build/gdt_load.o
 
 build/%.o : src/%.c | build
-	$(CC) $(CFLAGS) -Iinclude -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 build/%.o : src/%.s | build
 	$(AS) $(ASFLAGS) -c $< -o $@

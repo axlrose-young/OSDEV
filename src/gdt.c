@@ -1,8 +1,9 @@
 #include <stdint.h>
-#include <stdio.h>
+#include <io.h>
 
 /*  
  * Yet to implement TSS
+ *
  */
 
 struct descriptor {
@@ -14,6 +15,7 @@ struct descriptor {
 	uint8_t base_high;	
 }__attribute__((packed));
 
+/* loaded using lgdt */
 struct gdt_ptr {
 	uint16_t size;
 	uint32_t base;
@@ -21,7 +23,8 @@ struct gdt_ptr {
 
 struct descriptor gdt[3];	
 struct gdt_ptr gdtr;
-extern void gdt_load(struct descriptor*);
+
+extern void gdt_load(struct gdt_ptr*); /* load from gdt_load.s */
 
 void gdt_init() {
 	gdt[0] = (struct descriptor){0};
@@ -40,10 +43,10 @@ void gdt_init() {
 	gdt[2].base_low = 0;
 	gdt[2].limit_low = 0xffff; 
 
-	gdtr.size = sizeof(struct descriptor) - 1;
+	gdtr.size = sizeof(gdt) - 1;
 	gdtr.base = (uint32_t)gdt;
 
-	gdt_load(gdt);	
+	gdt_load(&gdtr); /* pass gdtr struct */
 }
 
 int main() {
