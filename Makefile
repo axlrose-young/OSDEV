@@ -12,7 +12,7 @@ OBJS = build/boot.o \
        build/kernel.o \
        build/tty.o \
        build/memcpy.o \
-       build/printf.o \
+       build/kprintf.o \
        build/putchar.o \
        build/strlen.o \
        build/gdt.o \

@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <io.h>
 
 /*  
  * Yet to implement TSS
@@ -47,14 +46,5 @@ void gdt_init() {
 	gdtr.base = (uint32_t)gdt;
 
 	gdt_load(&gdtr); /* pass gdtr struct */
-}
-
-int main() {
-	gdt_init();
-	for(int i = 0; i < 3; i++) {
-		printf("descriptor val: %016llx\n",gdt[i]);
-	}
-
-	printf("Address of table %p\n",(void*)&(gdt));
 }
 

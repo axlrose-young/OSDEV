@@ -10,14 +10,14 @@ set_CR0:
 	or $0x1, %eax		# Sets last bit to set protected mode
 	mov %eax, %cr0
 	
-far_jump:				# Far jump for protected mode to enable and 
+far_jump:				# Far jump for protected mode to enable  
 					# Reloading cs register
 
 	ljmp $0x08, $reload_regs 	# Sets cs as 0x08 and jumps
 					# ljmp as in GAS AT&T syntax
 
 reload_regs:
-	mov $0x10, %ax	
+	mov $0x10, %ax			# Moving second index to other registers
 	mov %ax, %ds
 	mov %ax, %ss
 	mov %ax, %es

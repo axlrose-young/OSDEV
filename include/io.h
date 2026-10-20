@@ -2,6 +2,6 @@
 #define IO_H
 
 int putchar(int);
-void printf(const char*,...);
+void kprintf(const char*,...);
 
 #endif

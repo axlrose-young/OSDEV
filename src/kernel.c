@@ -18,5 +18,5 @@ kernel_main(void)
 	terminal_init();	
 	gdt_init();
 
-	printf("Hello after gdt init\n");
+	kprintf("Hello after gdt init\n");
 }

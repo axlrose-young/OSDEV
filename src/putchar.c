@@ -1,7 +1,9 @@
 #include <io.h>
 #include <tty.h>
 
-int putchar(int ic){
+int 
+putchar(int ic)
+{
 	char c[2];
 	c[0] = (char) ic;		
 	c[1] = '\0';

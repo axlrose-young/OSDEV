@@ -3,7 +3,8 @@
 #include <stdarg.h>
 #include <stddef.h>
 
-void printf(const char* fmt,...){
+void kprintf(const char* fmt,...)
+{
 	va_list args;
 	va_start(args,fmt);	
 	while(*fmt){
