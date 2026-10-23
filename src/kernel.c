@@ -11,12 +11,14 @@
 #include <tty.h>
 #include <io.h>
 #include <gdt.h>
+#include <idt.h>
 
 void 
 kernel_main(void)
 {
 	terminal_init();	
 	gdt_init();
+	idt_init();
 
 	kprintf("Hello after gdt init\n");
 }

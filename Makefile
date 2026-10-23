@@ -16,7 +16,8 @@ OBJS = build/boot.o \
        build/putchar.o \
        build/strlen.o \
        build/gdt.o \
-       build/gdt_load.o
+       build/gdt_load.o \
+       build/idt.o
 
 build/%.o : src/%.c | build
 	$(CC) $(CFLAGS) -c $< -o $@ 
