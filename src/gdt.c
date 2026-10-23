@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 /*  
- * Yet to implement TSS
+ * TSS not implemented 
  *
  */
 

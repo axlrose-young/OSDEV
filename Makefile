@@ -45,5 +45,9 @@ run: myos.iso
 	qemu-system-i386 -cdrom myos.iso
 
 debug: myos.iso
-	qemu-system-i386 -cdrom myos.iso -no-reboot -d int,cpu_reset -s -S
+	qemu-system-i386 -cdrom myos.iso -s -S -d int -no-reboot
+	# -s listens for remote connection on port localhost:1234
+	# -S manual gdb usage
+	# -d int shows interrupts
+	# -no-reboot will stop qemu from rebooting on error
 
